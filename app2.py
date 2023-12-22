@@ -75,7 +75,7 @@ def process_data(url):
         word_list.sort(key=lambda x: x['count'], reverse=True)
 
         # 选择前六项作为返回结果
-        top_six_words = word_list[1:20]
+        top_six_words = word_list[1:21]
 
         return top_six_words
 
