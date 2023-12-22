@@ -57,16 +57,21 @@ def visualize_line(data):
     y_data = [item['count'] for item in data]
 
     # 创建折线图实例
-    lien = (
+    line = (
         Line(init_opts=opts.InitOpts(theme=ThemeType.LIGHT))
-        .add_xaxis(x_data)
+        .add_xaxis(
+            x_data,
+           
+        )
         .add_yaxis("", y_data)
-        .set_global_opts(title_opts=opts.TitleOpts(title="折线图"))
+        .set_global_opts(title_opts=opts.TitleOpts(title="折线图"),
+                          xaxis_opts=opts.AxisOpts(axislabel_opts=opts.LabelOpts(rotate=-45, font_style="italic"))
+                          )
     )
 
     # 生成静态图片
-    file_path = "./lien.html"
-    lien.render(file_path)
+    file_path = "./line.html"
+    line.render(file_path)
 
     # 读取图表文件内容
     with open(file_path, 'r') as f:
@@ -86,13 +91,19 @@ def visualize_bar(data):
         Bar(init_opts=opts.InitOpts(theme=ThemeType.LIGHT))
         .add_xaxis(x_data)
         .add_yaxis("", y_data)
-        .set_global_opts(title_opts=opts.TitleOpts(title="柱状图"))
-        .set_series_opts(itemstyle_opts={"barWidth": "50%"}, tooltip_opts=opts.TooltipOpts(formatter="{b}: {c}"),  # 设置提示框格式
-                         )  # 设置柱状图宽度为50%
+        .set_global_opts(
+            title_opts=opts.TitleOpts(title="柱状图"),
+            xaxis_opts=opts.AxisOpts(
+                axislabel_opts=opts.LabelOpts(
+                    rotate=-45,
+                    font_style="italic",  # 设置斜体字体样式
+                    rich={"textAlign": "center", "verticalAlign": "bottom"}  # 调整标签位置
+                )
+            )
+        )
     )
 
     # 生成静态图片
-    # make_snapshot(driver, bar.render(), "chart.png")
     file_path = "./bar.html"
     bar.render(file_path)
 
